@@ -1,0 +1,371 @@
+:root {
+  --azul-oscuro: #0b1f3a;
+  --azul-salesiano: #0057b8;
+  --azul-claro: #eaf3ff;
+  --dorado: #f5b301;
+  --blanco: #ffffff;
+  --gris-texto: #5f6b7a;
+  --gris-fondo: #f5f7fb;
+  --sombra: 0 20px 45px rgba(11, 31, 58, 0.15);
+  --radio: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--gris-fondo);
+  color: var(--azul-oscuro);
+}
+
+/* HERO */
+
+.hero {
+  min-height: 100vh;
+  padding: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(245, 179, 1, 0.25), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(0, 87, 184, 0.35), transparent 35%),
+    linear-gradient(135deg, #06172b, #0b1f3a 55%, #003f88);
+  color: var(--blanco);
+}
+
+.navbar {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: var(--dorado);
+  color: var(--azul-oscuro);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 30px rgba(245, 179, 1, 0.35);
+}
+
+.brand h1 {
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.brand span {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.nav-button {
+  text-decoration: none;
+  color: var(--blanco);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 11px 18px;
+  border-radius: 999px;
+  transition: 0.3s ease;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.hero-content {
+  max-width: 1180px;
+  min-height: calc(100vh - 120px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(245, 179, 1, 0.15);
+  border: 1px solid rgba(245, 179, 1, 0.45);
+  color: #ffe08a;
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  margin-bottom: 24px;
+}
+
+.hero-text h2 {
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  letter-spacing: -2px;
+  max-width: 850px;
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  font-size: 1.12rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 650px;
+}
+
+.hero-actions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.primary-btn {
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: 0.3s ease;
+  background: var(--dorado);
+  color: var(--azul-oscuro);
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(245, 179, 1, 0.3);
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  border-radius: 32px;
+  padding: 38px;
+  min-height: 360px;
+  box-shadow: var(--sombra);
+}
+
+.card-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: rgba(245, 179, 1, 0.3);
+  border-radius: 50%;
+  top: -60px;
+  right: -60px;
+  filter: blur(10px);
+}
+
+.music-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 28px;
+  background: var(--dorado);
+  color: var(--azul-oscuro);
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 34px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 2rem;
+  margin-bottom: 18px;
+}
+
+.hero-card p {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+}
+
+/* SECTIONS */
+
+.section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 90px 28px;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.section-label {
+  display: inline-block;
+  color: var(--azul-salesiano);
+  background: var(--azul-claro);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.section-header p {
+  color: var(--gris-texto);
+  line-height: 1.7;
+}
+
+/* SONGS */
+
+.songs-section {
+  padding-top: 70px;
+}
+
+.search-box {
+  max-width: 620px;
+  margin: 0 auto 34px;
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 18px 22px;
+  border-radius: 999px;
+  font-size: 1rem;
+  background: var(--blanco);
+  box-shadow: 0 12px 30px rgba(11, 31, 58, 0.08);
+}
+
+.songs-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.song-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--blanco);
+  padding: 22px;
+  border-radius: var(--radio);
+  box-shadow: 0 12px 30px rgba(11, 31, 58, 0.08);
+  transition: 0.3s ease;
+  border-left: 6px solid var(--azul-salesiano);
+}
+
+.song-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+  border-left-color: var(--dorado);
+}
+
+.song-number {
+  min-width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: var(--azul-claro);
+  color: var(--azul-salesiano);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.song-info {
+  flex: 1;
+}
+
+.song-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+}
+
+.song-info p {
+  color: var(--gris-texto);
+  font-size: 0.95rem;
+}
+
+.song-link {
+  text-decoration: none;
+  background: var(--azul-salesiano);
+  color: var(--blanco);
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: 0.3s ease;
+  white-space: nowrap;
+}
+
+.song-link:hover {
+  background: var(--azul-oscuro);
+}
+
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  padding: 36px 20px;
+  background: var(--azul-oscuro);
+  color: var(--blanco);
+}
+
+.footer p {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.footer span {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.92rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+  .navbar {
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 40px;
+  }
+
+  .hero-card {
+    min-height: auto;
+  }
+
+  .song-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .song-link {
+    width: 100%;
+    text-align: center;
+  }
+}

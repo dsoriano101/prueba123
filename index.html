@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Canta con Don Bosco</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <nav class="navbar">
+      <div class="brand">
+        <div class="brand-icon">CDB</div>
+        <div>
+          <h1>Canta con Don Bosco</h1>
+          <span>Las canciones de Felices</span>
+        </div>
+      </div>
+
+      <a href="#canciones" class="nav-button">Ver letras</a>
+    </nav>
+
+
+    <section class="hero-content">
+      <div class="hero-text">
+
+        <h2>No te quedes atrás</h2>
+
+        <p>
+          Quien canta ora 2 veces, asi que forma parte de esta gran fiesta al 101%.
+          Esperemos que el bajista no se equivoque 🥲.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#canciones" class="primary-btn">Buscar el temazo 🎶</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-glow"></div>
+        <div class="music-icon">🎤</div>
+        <h3>Listado de canciones</h3>
+        <p>
+          Aqui ta´ la letra completa
+        </p>
+      </div>
+    </section>
+  </header>
+
+  <main>
+
+    <section id="canciones" class="section songs-section">
+      <div class="section-header">
+        <span class="section-label">Letras</span>
+        <h2>🔥Listado de temazos salesianos🔥</h2>
+        <p>
+          Aqui solo encontraras los mejores temas salesianos, solo joyas:
+          Llévate de mi 😎
+        </p>
+      </div>
+
+      <div class="search-box">
+        <input 
+          type="text" 
+          id="buscador" 
+          placeholder="Buscar el tema..." 
+          onkeyup="buscarCancion()"
+        />
+      </div>
+
+      <div class="songs-grid" id="listaCanciones">
+
+        <article class="song-card">
+          <div class="song-number">01</div>
+
+          <div class="song-info">
+            <h3>El Bajista se perdió</h3>
+            <p>El bajista se perdió y no pudimos hacer nada</p>
+          </div>
+
+          <a href="cancion-ven-y-sigueme.html" class="song-link">Ver letra</a>
+        </article>
+
+        <article class="song-card">
+          <div class="song-number">02</div>
+
+          <div class="song-info">
+            <h3>El bajista volvió hacerlo</h3>
+            <p>No se que haremos con ese hombre 🤦🏽‍♂️</p>
+          </div>
+
+          <a href="cancion-padre-maestro-amigo.html" class="song-link">Ver letra</a>
+        </article>
+
+        <article class="song-card">
+          <div class="song-number">03</div>
+
+          <div class="song-info">
+            <h3>Ysidro no encontró otro bajista</h3>
+            <p>Minimo, porque si no es eso</p>
+          </div>
+
+          <a href="cancion-siempre-alegres.html" class="song-link">Ver letra</a>
+        </article>
+
+        <article class="song-card">
+          <div class="song-number">04</div>
+
+          <div class="song-info">
+            <h3>El fuetazo</h3>
+            <p>Dedicada a Mariam/p>
+          </div>
+
+          <a href="cancion-maria-auxiliadora.html" class="song-link">Ver letra</a>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Cancionero Salesiano · Inspirado en Don Bosco</p>
+    <span>Felices con Don Bosco 2026 ©</span>
+  </footer>
+
+  <script>
+    function buscarCancion() {
+      const input = document.getElementById("buscador").value.toLowerCase();
+      const canciones = document.querySelectorAll(".song-card");
+
+      canciones.forEach(cancion => {
+        const titulo = cancion.querySelector("h3").textContent.toLowerCase();
+
+        if (titulo.includes(input)) {
+          cancion.style.display = "flex";
+        } else {
+          cancion.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
