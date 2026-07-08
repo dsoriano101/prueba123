@@ -1,371 +1,174 @@
-:root {
-  --azul-oscuro: #0b1f3a;
-  --azul-salesiano: #0057b8;
-  --azul-claro: #eaf3ff;
-  --dorado: #f5b301;
-  --blanco: #ffffff;
-  --gris-texto: #5f6b7a;
-  --gris-fondo: #f5f7fb;
-  --sombra: 0 20px 45px rgba(11, 31, 58, 0.15);
-  --radio: 24px;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <title>Canta con Don Bosco</title>
 
-html {
-  scroll-behavior: smooth;
-}
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--gris-fondo);
-  color: var(--azul-oscuro);
-}
+  <header class="hero">
+    <nav class="navbar">
+      <div class="brand">
+        <div class="brand-icon">CDB</div>
+        <div>
+          <h1>Canta con Don Bosco</h1>
+          <span>Las canciones de Felices</span>
+        </div>
+      </div>
 
-/* HERO */
+      <a href="#canciones" class="nav-button">Ver letras</a>
+    </nav>
 
-.hero {
-  min-height: 100vh;
-  padding: 28px;
-  background:
-    radial-gradient(circle at top right, rgba(245, 179, 1, 0.25), transparent 30%),
-    radial-gradient(circle at bottom left, rgba(0, 87, 184, 0.35), transparent 35%),
-    linear-gradient(135deg, #06172b, #0b1f3a 55%, #003f88);
-  color: var(--blanco);
-}
 
-.navbar {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 18px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    <section class="hero-content">
+      <div class="hero-text">
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
+        <h2>Canta con Don Bosco 🗣️</h2>
 
-.brand-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
-  background: var(--dorado);
-  color: var(--azul-oscuro);
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  font-size: 1.2rem;
-  box-shadow: 0 10px 30px rgba(245, 179, 1, 0.35);
-}
+        <p>
+          Quien canta ora 2 veces, asi que forma parte de esta gran fiesta al 101%.
+          Esperemos que el bajista no se equivoque 🥲.
+        </p>
 
-.brand h1 {
-  font-size: 1.25rem;
-  line-height: 1.1;
-}
+        <div class="hero-actions">
+          <a href="#canciones" class="primary-btn">Buscar el temazo 🎶</a>
+        </div>
+      </div>
 
-.brand span {
-  font-size: 0.86rem;
-  color: rgba(255, 255, 255, 0.75);
-}
+      <div class="hero-card">
+        <div class="card-glow"></div>
+        <div class="music-icon">🎤</div>
+        <h3>Listado de canciones</h3>
+        <p>
+          Aqui ta´ la letra completa
+        </p>
+      </div>
+    </section>
+  </header>
 
-.nav-button {
-  text-decoration: none;
-  color: var(--blanco);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 11px 18px;
-  border-radius: 999px;
-  transition: 0.3s ease;
-}
+  <main>
 
-.nav-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-}
+    <section id="canciones" class="section songs-section">
+      <div class="section-header">
+        <h2>🔥Listado de temazos🔥</h2>
+        
+          Aqui solo encontraras los mejores temas salesianos, solo joyas:
+          Llévate de mi 😎
+        </p>
+      </div>
 
-.hero-content {
-  max-width: 1180px;
-  min-height: calc(100vh - 120px);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 60px;
-  align-items: center;
-}
+      <div class="search-box">
+        <input 
+          type="text" 
+          id="buscador" 
+          placeholder="Buscar el tema..." 
+          onkeyup="buscarCancion()"
+        />
+      </div>
 
-.badge {
-  display: inline-block;
-  background: rgba(245, 179, 1, 0.15);
-  border: 1px solid rgba(245, 179, 1, 0.45);
-  color: #ffe08a;
-  padding: 9px 15px;
-  border-radius: 999px;
-  font-size: 0.88rem;
-  margin-bottom: 24px;
-}
+      <div class="songs-grid" id="listaCanciones">
 
-.hero-text h2 {
-  font-size: clamp(2.6rem, 6vw, 5.8rem);
-  line-height: 0.95;
-  letter-spacing: -2px;
-  max-width: 850px;
-  margin-bottom: 24px;
-}
+        <article class="song-card">
+          <div class="song-number">01</div>
 
-.hero-text p {
-  font-size: 1.12rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 650px;
-}
+          <div class="song-info">
+            <h3>Padre, Maestro y Amigo</h3>
+            <p>El mejor hombre 🥹</p>
+          </div>
 
-.hero-actions {
-  margin-top: 34px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
+          <a href="cancion-padre-maestro-y-amigo.html" class="song-link">Ver letra</a>
+        </article>
 
-.primary-btn {
-  text-decoration: none;
-  padding: 14px 22px;
-  border-radius: 999px;
-  font-weight: 700;
-  transition: 0.3s ease;
-  background: var(--dorado);
-  color: var(--azul-oscuro);
-}
+        <article class="song-card">
+          <div class="song-number">02</div>
 
-.primary-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(245, 179, 1, 0.3);
-}
+          <div class="song-info">
+            <h3>Don Bosco Amigo</h3>
+            <p>Tu pana full 🤜🏻🤛🏻</p>
+          </div>
 
-.hero-card {
-  position: relative;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.11);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(16px);
-  border-radius: 32px;
-  padding: 38px;
-  min-height: 360px;
-  box-shadow: var(--sombra);
-}
+          <a href="Don-Bosco-Amigo.html" class="song-link">Ver letra</a>
+        </article>
 
-.card-glow {
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  background: rgba(245, 179, 1, 0.3);
-  border-radius: 50%;
-  top: -60px;
-  right: -60px;
-  filter: blur(10px);
-}
+        <article class="song-card">
+          <div class="song-number">03</div>
 
-.music-icon {
-  width: 88px;
-  height: 88px;
-  border-radius: 28px;
-  background: var(--dorado);
-  color: var(--azul-oscuro);
-  display: grid;
-  place-items: center;
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 34px;
-  position: relative;
-  z-index: 1;
-}
+          <div class="song-info">
+            <h3>Un ❤️ tan grande</h3>
+            <p>Pila de grande</p>
+          </div>
 
-.hero-card h3 {
-  position: relative;
-  z-index: 1;
-  font-size: 2rem;
-  margin-bottom: 18px;
-}
+          <a href="cancion-un-Corazón-Tan-Grande.html" class="song-link">Ver letra</a>
+        </article>
 
-.hero-card p {
-  position: relative;
-  z-index: 1;
-  color: rgba(255, 255, 255, 0.78);
-  line-height: 1.7;
-}
+        <article class="song-card">
+          <div class="song-number">04</div>
 
-/* SECTIONS */
+          <div class="song-info">
+            <h3>Candombe del Oratorio</h3>
+            <p>La de Ysidro 🎉
+          </div>
 
-.section {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 90px 28px;
-}
+          <a href="cancion-candombe-del-oratorio.html" class="song-link">Ver letra</a>
+        </article>
 
-.section-header {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 48px;
-}
+        <article class="song-card">
+          <div class="song-number">05</div>
 
-.section-label {
-  display: inline-block;
-  color: var(--azul-salesiano);
-  background: var(--azul-claro);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 18px;
-}
+          <div class="song-info">
+            <h3>Don Bosco te espera</h3>
+            <p>Más allá de las estrellas ⭐</p>
+          </div>
 
-.section-header h2 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
+          <a href="cancion-Don-Bosco-Te-Espera.html" class="song-link">Ver letra</a>
+        </article>
 
-.section-header p {
-  color: var(--gris-texto);
-  line-height: 1.7;
-}
+        <article class="song-card">
+          <div class="song-number">06</div>
 
-/* SONGS */
+          <div class="song-info">
+            <h3>Salve Don Bosco Santo</h3>
+            <p>Joven de Corazón
+          </div>
 
-.songs-section {
-  padding-top: 70px;
-}
+          <a href="cancion-Salve-Don-Bosco-Santo.html" class="song-link">Ver letra</a>
+        </article>
 
-.search-box {
-  max-width: 620px;
-  margin: 0 auto 34px;
-}
+      </div>
+      
 
-.search-box input {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 18px 22px;
-  border-radius: 999px;
-  font-size: 1rem;
-  background: var(--blanco);
-  box-shadow: 0 12px 30px rgba(11, 31, 58, 0.08);
-}
 
-.songs-grid {
-  display: grid;
-  gap: 18px;
-}
 
-.song-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: var(--blanco);
-  padding: 22px;
-  border-radius: var(--radio);
-  box-shadow: 0 12px 30px rgba(11, 31, 58, 0.08);
-  transition: 0.3s ease;
-  border-left: 6px solid var(--azul-salesiano);
-}
 
-.song-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sombra);
-  border-left-color: var(--dorado);
-}
+    </section>
 
-.song-number {
-  min-width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  background: var(--azul-claro);
-  color: var(--azul-salesiano);
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-}
+  </main>
 
-.song-info {
-  flex: 1;
-}
+  <footer class="footer">
+    <p>Canta Con Don Bosco · Inspirado en Don Bosco</p>
+    <span>By Darwin Soriano Quezada ©</span>
+  </footer>
 
-.song-info h3 {
-  font-size: 1.25rem;
-  margin-bottom: 5px;
-}
+  <script>
+    function buscarCancion() {
+      const input = document.getElementById("buscador").value.toLowerCase();
+      const canciones = document.querySelectorAll(".song-card");
 
-.song-info p {
-  color: var(--gris-texto);
-  font-size: 0.95rem;
-}
+      canciones.forEach(cancion => {
+        const titulo = cancion.querySelector("h3").textContent.toLowerCase();
 
-.song-link {
-  text-decoration: none;
-  background: var(--azul-salesiano);
-  color: var(--blanco);
-  padding: 11px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  transition: 0.3s ease;
-  white-space: nowrap;
-}
+        if (titulo.includes(input)) {
+          cancion.style.display = "flex";
+        } else {
+          cancion.style.display = "none";
+        }
+      });
+    }
+  </script>
 
-.song-link:hover {
-  background: var(--azul-oscuro);
-}
-
-/* FOOTER */
-
-.footer {
-  text-align: center;
-  padding: 36px 20px;
-  background: var(--azul-oscuro);
-  color: var(--blanco);
-}
-
-.footer p {
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.footer span {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.92rem;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 850px) {
-  .navbar {
-    align-items: flex-start;
-    gap: 20px;
-    flex-direction: column;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 40px;
-  }
-
-  .hero-card {
-    min-height: auto;
-  }
-
-  .song-card {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .song-link {
-    width: 100%;
-    text-align: center;
-  }
-}
+</body>
+</html>
