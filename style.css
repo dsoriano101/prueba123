@@ -49,8 +49,6 @@ body {
     linear-gradient(135deg, #06172b 0%, #0b1f3a 55%, #003f88 100%);
 }
 
-/* Textura suave */
-
 .hero::before {
   content: "";
   position: absolute;
@@ -62,8 +60,6 @@ body {
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 85%);
   pointer-events: none;
 }
-
-/* Notas flotantes */
 
 .hero::after {
   content: "♪  ♫  🎶";
@@ -926,44 +922,64 @@ body {
   }
 
   .section {
-    padding: 62px 18px;
+    padding: 62px 16px;
+  }
+
+  .songs-section {
+    padding-top: 44px;
   }
 
   .section-header {
-    margin-bottom: 34px;
+    margin-bottom: 28px;
   }
 
   .section-label {
     font-size: 0.78rem;
+    padding: 8px 15px;
+    margin-bottom: 16px;
   }
 
   .section-header h2 {
-    font-size: clamp(1.85rem, 9vw, 2.5rem);
+    font-size: clamp(2rem, 10vw, 2.75rem);
+    line-height: 1.12;
     letter-spacing: -1.2px;
+    max-width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
   }
 
   .section-header p {
-    font-size: 0.96rem;
+    max-width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95rem;
     line-height: 1.65;
   }
 
   .search-box {
-    margin-bottom: 32px;
+    margin: 0 auto 24px;
+  }
+
+  .search-box::before {
+    left: 20px;
+    font-size: 1rem;
   }
 
   .search-box input {
-    padding: 18px 22px 18px 54px;
-    font-size: 1rem;
+    height: 58px;
+    padding: 16px 20px 16px 52px;
+    border-radius: 999px;
+    font-size: 0.98rem;
   }
 
   .filter-buttons {
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
-    padding-bottom: 10px;
-    margin: -8px -18px 20px;
-    padding-left: 18px;
-    padding-right: 18px;
+    gap: 10px;
+    margin: 0 -16px 22px;
+    padding: 2px 16px 12px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
@@ -973,24 +989,31 @@ body {
   }
 
   .filter-btn {
+    flex: 0 0 auto;
     white-space: nowrap;
     scroll-snap-align: start;
-    padding: 11px 17px;
+    padding: 12px 18px;
+    border-radius: 999px;
     font-size: 0.92rem;
+    font-weight: 850;
+  }
+
+  .filter-btn.active {
+    transform: none;
   }
 
   .song-counter {
     font-size: 0.9rem;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .songs-grid {
-    gap: 16px;
+    gap: 15px;
   }
 
   .song-card {
-    padding: 20px;
-    border-radius: 25px;
+    padding: 18px;
+    border-radius: 23px;
     gap: 16px;
   }
 
@@ -1005,16 +1028,19 @@ body {
   }
 
   .song-info h3 {
-    font-size: 1.16rem;
+    font-size: 1.12rem;
+    line-height: 1.25;
   }
 
   .song-info p {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
   }
 
   .song-link {
+    width: 100%;
     padding: 13px 18px;
     font-size: 0.95rem;
+    text-align: center;
   }
 
   .footer {
