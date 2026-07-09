@@ -66,7 +66,6 @@ body {
       rgba(6, 23, 43, 0.62) 42%,
       rgba(6, 23, 43, 0.88) 100%
     ),
-    radial-gradient(circle at 50% 42%, rgba(245, 179, 1, 0.22), transparent 24%),
     radial-gradient(circle at 15% 30%, rgba(0, 87, 184, 0.38), transparent 32%),
     radial-gradient(circle at 85% 35%, rgba(29, 140, 255, 0.25), transparent 34%);
 }
@@ -106,22 +105,10 @@ body {
     );
 }
 
-/* Glow detrás del logo */
+/* Glow detrás del logo eliminado */
 
 .hero-content::before {
-  content: "";
-  position: absolute;
-  width: min(720px, 82vw);
-  height: min(720px, 82vw);
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background:
-    radial-gradient(circle, rgba(245, 179, 1, 0.22), transparent 58%),
-    radial-gradient(circle, rgba(0, 87, 184, 0.22), transparent 70%);
-  filter: blur(6px);
-  pointer-events: none;
+  display: none;
 }
 
 .navbar,
@@ -254,8 +241,7 @@ body {
   transform: rotate(-1deg);
   filter:
     drop-shadow(0 26px 32px rgba(0, 0, 0, 0.64))
-    drop-shadow(0 0 28px rgba(245, 179, 1, 0.30))
-    drop-shadow(0 0 20px rgba(29, 140, 255, 0.22));
+    drop-shadow(0 0 20px rgba(29, 140, 255, 0.20));
   animation: logoBrillo 3.8s ease-in-out infinite;
 }
 
@@ -276,16 +262,14 @@ body {
     transform: rotate(-1deg) scale(1);
     filter:
       drop-shadow(0 26px 32px rgba(0, 0, 0, 0.64))
-      drop-shadow(0 0 24px rgba(245, 179, 1, 0.22))
-      drop-shadow(0 0 16px rgba(29, 140, 255, 0.16));
+      drop-shadow(0 0 16px rgba(29, 140, 255, 0.14));
   }
 
   50% {
     transform: rotate(-1deg) scale(1.025);
     filter:
       drop-shadow(0 30px 38px rgba(0, 0, 0, 0.68))
-      drop-shadow(0 0 42px rgba(245, 179, 1, 0.48))
-      drop-shadow(0 0 30px rgba(29, 140, 255, 0.34));
+      drop-shadow(0 0 28px rgba(29, 140, 255, 0.28));
   }
 }
 
@@ -800,7 +784,6 @@ main::before {
         rgba(6, 23, 43, 0.68) 44%,
         rgba(6, 23, 43, 0.90) 100%
       ),
-      radial-gradient(circle at 50% 34%, rgba(245, 179, 1, 0.23), transparent 30%),
       radial-gradient(circle at 80% 28%, rgba(29, 140, 255, 0.24), transparent 32%);
   }
 
@@ -847,7 +830,6 @@ main::before {
         rgba(6, 23, 43, 0.66) 44%,
         rgba(6, 23, 43, 0.92) 100%
       ),
-      radial-gradient(circle at 50% 34%, rgba(245, 179, 1, 0.22), transparent 34%),
       radial-gradient(circle at 92% 18%, rgba(29, 140, 255, 0.22), transparent 30%);
   }
 
@@ -907,8 +889,7 @@ main::before {
     transform: rotate(-1deg);
     filter:
       drop-shadow(0 18px 26px rgba(0, 0, 0, 0.64))
-      drop-shadow(0 0 22px rgba(245, 179, 1, 0.24))
-      drop-shadow(0 0 16px rgba(29, 140, 255, 0.18));
+      drop-shadow(0 0 16px rgba(29, 140, 255, 0.16));
     animation: logoBrilloMobile 3.8s ease-in-out infinite;
   }
 
@@ -917,16 +898,14 @@ main::before {
       transform: rotate(-1deg) scale(1);
       filter:
         drop-shadow(0 18px 26px rgba(0, 0, 0, 0.64))
-        drop-shadow(0 0 20px rgba(245, 179, 1, 0.20))
-        drop-shadow(0 0 14px rgba(29, 140, 255, 0.14));
+        drop-shadow(0 0 14px rgba(29, 140, 255, 0.12));
     }
 
     50% {
       transform: rotate(-1deg) scale(1.018);
       filter:
         drop-shadow(0 22px 30px rgba(0, 0, 0, 0.68))
-        drop-shadow(0 0 34px rgba(245, 179, 1, 0.40))
-        drop-shadow(0 0 22px rgba(29, 140, 255, 0.26));
+        drop-shadow(0 0 22px rgba(29, 140, 255, 0.24));
     }
   }
 
