@@ -60,13 +60,15 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(6, 23, 43, 0.84) 0%,
-      rgba(6, 23, 43, 0.62) 42%,
-      rgba(6, 23, 43, 0.90) 100%
+      rgba(6, 23, 43, 0.86) 0%,
+      rgba(6, 23, 43, 0.64) 42%,
+      rgba(6, 23, 43, 0.92) 100%
     ),
-    radial-gradient(circle at 15% 30%, rgba(0, 87, 184, 0.38), transparent 32%),
-    radial-gradient(circle at 85% 35%, rgba(29, 140, 255, 0.25), transparent 34%);
+    radial-gradient(circle at 15% 30%, rgba(0, 87, 184, 0.30), transparent 32%),
+    radial-gradient(circle at 85% 35%, rgba(29, 140, 255, 0.20), transparent 34%);
 }
+
+/* Sin cuadritos/textura */
 
 .hero::after {
   content: "";
@@ -74,10 +76,7 @@ body {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px),
     radial-gradient(circle at center, transparent 0%, rgba(6, 23, 43, 0.18) 56%, rgba(6, 23, 43, 0.72) 100%);
-  background-size: 42px 42px, 42px 42px, cover;
   pointer-events: none;
 }
 
@@ -235,7 +234,7 @@ body {
   gap: 14px;
 }
 
-/* BOTÓN MÁS FINO */
+/* BOTÓN FINO */
 
 .primary-btn {
   position: relative;
@@ -285,8 +284,8 @@ body {
 main {
   position: relative;
   background:
-    radial-gradient(circle at 18% 4%, rgba(245, 179, 1, 0.16), transparent 24%),
-    radial-gradient(circle at 82% 0%, rgba(0, 87, 184, 0.13), transparent 28%),
+    radial-gradient(circle at 18% 4%, rgba(245, 179, 1, 0.12), transparent 24%),
+    radial-gradient(circle at 82% 0%, rgba(0, 87, 184, 0.10), transparent 28%),
     linear-gradient(180deg, #f5f7fb 0%, #eef4ff 34%, #f8fbff 100%);
 }
 
@@ -319,8 +318,8 @@ main::before {
   border-radius: 38px;
   background:
     linear-gradient(180deg, rgba(7, 24, 45, 0.98), rgba(8, 25, 46, 0.94) 46%, rgba(9, 31, 58, 0.98)),
-    radial-gradient(circle at 15% 10%, rgba(245, 179, 1, 0.14), transparent 28%),
-    radial-gradient(circle at 90% 0%, rgba(29, 140, 255, 0.18), transparent 34%);
+    radial-gradient(circle at 15% 10%, rgba(245, 179, 1, 0.12), transparent 28%),
+    radial-gradient(circle at 90% 0%, rgba(29, 140, 255, 0.16), transparent 34%);
   color: var(--blanco);
   box-shadow:
     0 32px 90px rgba(11, 31, 58, 0.20),
@@ -328,16 +327,10 @@ main::before {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Sin cuadritos/textura */
+
 .playlist-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-  background-size: 38px 38px;
-  pointer-events: none;
-  opacity: 0.8;
+  display: none;
 }
 
 .playlist-hero {
@@ -345,7 +338,7 @@ main::before {
   z-index: 1;
   padding: 46px 42px 38px;
   background:
-    linear-gradient(135deg, rgba(0, 87, 184, 0.20), rgba(245, 179, 1, 0.08)),
+    linear-gradient(135deg, rgba(0, 87, 184, 0.18), rgba(245, 179, 1, 0.07)),
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
 }
 
@@ -392,7 +385,7 @@ main::before {
   font-weight: 700;
 }
 
-/* VISUALIZER */
+/* VISUALIZER FINO */
 
 .mini-visualizer {
   display: flex;
@@ -599,8 +592,8 @@ main::before {
   grid-template-columns: 58px 1fr 160px 110px;
   align-items: center;
   gap: 16px;
-  padding: 11px 14px;
-  border-radius: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
   background: transparent;
   text-decoration: none;
   color: inherit;
@@ -612,7 +605,7 @@ main::before {
 }
 
 .song-card:hover {
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.075);
   transform: translateY(-1px);
 }
 
@@ -623,28 +616,17 @@ main::before {
   text-align: center;
 }
 
+/* Sin cuadritos de portada */
+
 .track-main {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   min-width: 0;
 }
 
-.track-cover {
-  min-width: 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 13px;
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(135deg, rgba(245, 179, 1, 0.95), rgba(255, 224, 138, 0.95));
-  color: var(--azul-oscuro);
-  font-weight: 950;
-  font-size: 1.05rem;
-  box-shadow:
-    0 10px 22px rgba(0, 0, 0, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+.track-text {
+  min-width: 0;
 }
 
 .song-info {
@@ -707,7 +689,7 @@ main::before {
   color: rgba(255, 255, 255, 0.42);
   font-size: 1.15rem;
   padding: 6px;
-  margin-left: -6px;
+  margin-left: -2px;
   transition: 0.2s ease;
 }
 
@@ -762,7 +744,7 @@ main::before {
   text-align: center;
   padding: 44px 20px;
   background:
-    radial-gradient(circle at top, rgba(245, 179, 1, 0.17), transparent 32%),
+    radial-gradient(circle at top, rgba(245, 179, 1, 0.14), transparent 32%),
     linear-gradient(135deg, var(--azul-oscuro), #07182d);
   color: var(--blanco);
 }
@@ -1032,7 +1014,7 @@ main::before {
     grid-template-columns: 30px 1fr auto;
     gap: 9px;
     padding: 11px 9px;
-    border-radius: 16px;
+    border-radius: 15px;
   }
 
   .track-number {
@@ -1040,16 +1022,8 @@ main::before {
     text-align: left;
   }
 
-  .track-cover {
-    min-width: 46px;
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-  }
-
   .track-main {
-    gap: 11px;
+    gap: 8px;
   }
 
   .song-info h3 {
