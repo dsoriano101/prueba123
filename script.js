@@ -53,7 +53,7 @@ const canciones = [
     descripcion: "Llévame pp Dios",
     categoria: "clasicas",
     categoriaTexto: "Clásicas",
-    archivo: "cancion-Alma-misionera.html"
+    archivo: "cancion-Alma-Misionera.html"
   }
 ];
 
