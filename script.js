@@ -1,177 +1,369 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+const canciones = [
+  {
+    numero: "01",
+    titulo: "Padre, Maestro y Amigo",
+    descripcion: "Clásico salesiano · El mejor hombre 🥹",
+    categoria: "don-bosco",
+    categoriaTexto: "Don Bosco",
+    archivo: "cancion-padre-maestro-y-amigo.html"
+  },
+  {
+    numero: "02",
+    titulo: "Don Bosco Amigo",
+    descripcion: "Tu pana full 🤜🏻🤛🏻",
+    categoria: "don-bosco",
+    categoriaTexto: "Don Bosco",
+    archivo: "Don-Bosco-Amigo.html"
+  },
+  {
+    numero: "03",
+    titulo: "Un corazón tan grande",
+    descripcion: "Pila de grande",
+    categoria: "fiesta",
+    categoriaTexto: "Fiesta",
+    archivo: "cancion-Un-Corazón-Tan-Grande.html"
+  },
+  {
+    numero: "04",
+    titulo: "Candombe del Oratorio",
+    descripcion: "La de Ysidro 🎉",
+    categoria: "oratorio",
+    categoriaTexto: "Oratorio",
+    archivo: "cancion-candombe-del-oratorio.html"
+  },
+  {
+    numero: "05",
+    titulo: "Don Bosco Te Espera",
+    descripcion: "Más allá de las estrellas ⭐",
+    categoria: "don-bosco",
+    categoriaTexto: "Don Bosco",
+    archivo: "cancion-Don-Bosco-Te-Espera.html"
+  },
+  {
+    numero: "06",
+    titulo: "Salve Don Bosco Santo",
+    descripcion: "Joven de corazón",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "cancion-Salve-Don-Bosco-Santo.html"
+  },
+  {
+    numero: "07",
+    titulo: "Alma misionera",
+    descripcion: "Llévame pp Dios",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "cancion-Alma-misionera.html"
+  }
+];
 
-  <title>Canta con Don Bosco</title>
+const buscador = document.getElementById("buscador");
+const listaCanciones = document.getElementById("listaCanciones");
+const botonesFiltro = document.querySelectorAll(".filter-btn");
+const contadorCanciones = document.getElementById("contadorCanciones");
+const noResults = document.getElementById("noResults");
+const continueCard = document.getElementById("continueCard");
+const continueTitle = document.getElementById("continueTitle");
+const continueLink = document.getElementById("continueLink");
 
-  <meta name="theme-color" content="#06172b" />
-  <meta name="description" content="Las canciones de Felices en un cancionero salesiano rápido, bonito y fácil de usar." />
+let categoriaActiva = "todas";
 
-  <meta property="og:title" content="Canta con Don Bosco" />
-  <meta property="og:description" content="Las canciones de Felices en un cancionero salesiano rápido, bonito y fácil de usar." />
-  <meta property="og:image" content="logo.png" />
+const FAVORITES_KEY = "cdb_favoritas";
+const LAST_SONG_KEY = "cdb_ultima_cancion";
 
-  <link rel="icon" href="logo.png" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
 
-  <header class="hero" id="inicio">
+function obtenerFavoritas() {
+  const favoritasGuardadas = localStorage.getItem(FAVORITES_KEY);
 
-    <nav class="navbar">
-      <div class="brand">
-        <div class="brand-icon">CDB</div>
+  if (!favoritasGuardadas) {
+    return [];
+  }
 
-        <div>
-          <h1>Canta con Don Bosco</h1>
-          <span>Las canciones de los salesianos</span>
+  try {
+    return JSON.parse(favoritasGuardadas);
+  } catch {
+    return [];
+  }
+}
+
+function guardarFavoritas(favoritas) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritas));
+}
+
+function esFavorita(archivo) {
+  return obtenerFavoritas().includes(archivo);
+}
+
+function alternarFavorita(archivo) {
+  let favoritas = obtenerFavoritas();
+
+  if (favoritas.includes(archivo)) {
+    favoritas = favoritas.filter((item) => item !== archivo);
+  } else {
+    favoritas.push(archivo);
+  }
+
+  guardarFavoritas(favoritas);
+  renderizarCanciones();
+  actualizarFiltros();
+  filtrarCanciones();
+}
+
+function guardarUltimaCancion(cancion) {
+  localStorage.setItem(
+    LAST_SONG_KEY,
+    JSON.stringify({
+      titulo: cancion.titulo,
+      archivo: cancion.archivo
+    })
+  );
+}
+
+function cargarUltimaCancion() {
+  const ultimaCancion = localStorage.getItem(LAST_SONG_KEY);
+
+  if (!ultimaCancion) {
+    continueCard.style.display = "none";
+    return;
+  }
+
+  try {
+    const cancion = JSON.parse(ultimaCancion);
+
+    if (!cancion.titulo || !cancion.archivo) {
+      continueCard.style.display = "none";
+      return;
+    }
+
+    continueTitle.textContent = cancion.titulo;
+    continueLink.href = cancion.archivo;
+    continueCard.style.display = "flex";
+  } catch {
+    continueCard.style.display = "none";
+  }
+}
+
+function crearCancionHTML(cancion) {
+  const favoritaActiva = esFavorita(cancion.archivo) ? "is-active" : "";
+  const corazon = esFavorita(cancion.archivo) ? "♥" : "♡";
+
+  return `
+    <article 
+      class="song-card" 
+      data-categoria="${cancion.categoria}"
+      data-titulo="${cancion.titulo}"
+      data-descripcion="${cancion.descripcion}"
+      data-archivo="${cancion.archivo}"
+    >
+      <div class="track-number">${cancion.numero}</div>
+
+      <div class="track-main">
+        <div class="song-info">
+          <h3>${cancion.titulo}</h3>
+          <p>${cancion.descripcion}</p>
         </div>
+
+        <button 
+          class="favorite-btn ${favoritaActiva}" 
+          type="button" 
+          aria-label="Marcar como favorita"
+          data-fav="${cancion.archivo}"
+        >
+          ${corazon}
+        </button>
       </div>
 
-      <a href="#canciones" class="nav-button">Ver letras</a>
-    </nav>
+      <div class="track-category">${cancion.categoriaTexto}</div>
 
-    <section class="hero-content">
-      <div class="hero-center">
+      <a href="${cancion.archivo}" class="song-link" data-open="${cancion.archivo}">
+        Abrir
+      </a>
+    </article>
+  `;
+}
 
-        <div class="hero-logo-wrap">
-          <img src="logo.png" alt="Canta con Don Bosco" class="hero-logo-img" />
-        </div>
+function renderizarCanciones() {
+  listaCanciones.innerHTML = canciones.map(crearCancionHTML).join("");
 
-        <p>
-          El que canta ora 2 veces, canta al 101%
-          Esperemos que el bajista no se equivoque 🥲.
-        </p>
+  const botonesFavoritos = document.querySelectorAll(".favorite-btn");
+  const enlacesCanciones = document.querySelectorAll(".song-link");
+  const tarjetasCanciones = document.querySelectorAll(".song-card");
 
-        <div class="hero-actions">
-          <a href="#canciones" class="primary-btn">Explorar canciones</a>
-        </div>
+  botonesFavoritos.forEach((boton) => {
+    boton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
 
-      </div>
-    </section>
+      const archivo = boton.dataset.fav;
+      alternarFavorita(archivo);
+    });
+  });
 
-    <div class="hero-bottom-fade"></div>
+  enlacesCanciones.forEach((enlace) => {
+    enlace.addEventListener("click", () => {
+      const archivo = enlace.dataset.open;
+      const cancion = canciones.find((item) => item.archivo === archivo);
 
-  </header>
+      if (cancion) {
+        guardarUltimaCancion(cancion);
+      }
+    });
+  });
 
-  <main>
+  tarjetasCanciones.forEach((tarjeta) => {
+    tarjeta.addEventListener("click", (event) => {
+      const clicEnFavorito = event.target.closest(".favorite-btn");
+      const clicEnLink = event.target.closest(".song-link");
 
-    <section id="canciones" class="section songs-section">
+      if (clicEnFavorito || clicEnLink) {
+        return;
+      }
 
-      <div class="playlist-shell">
+      const archivo = tarjeta.dataset.archivo;
+      const cancion = canciones.find((item) => item.archivo === archivo);
 
-        <div class="playlist-hero">
+      if (cancion) {
+        guardarUltimaCancion(cancion);
+        window.location.href = cancion.archivo;
+      }
+    });
+  });
+}
 
-          <div class="playlist-info">
-            <span class="playlist-kicker">Playlist salesiana</span>
+function contarPorCategoria(categoria) {
+  if (categoria === "todas") {
+    return canciones.length;
+  }
 
-            <h2>Temazos salesianos</h2>
+  if (categoria === "favoritas") {
+    return obtenerFavoritas().length;
+  }
 
-            <p>
-              Busca, filtra, marca tus favoritas y abre la canción que necesitas.
-              Aquí solo hay joyas: llévate de mí 😎
-            </p>
+  return canciones.filter((cancion) => cancion.categoria === categoria).length;
+}
 
-            <div class="playlist-meta">
-              <span id="contadorCanciones">Cargando canciones...</span>
-              <span>•</span>
-              <span>Canta con Don Bosco</span>
-              <span>•</span>
-              <span>Modo Felices</span>
-            </div>
+function obtenerNombreFiltro(filtro) {
+  const nombres = {
+    todas: "Todas",
+    favoritas: "Favoritas",
+    "don-bosco": "Don Bosco",
+    oratorio: "Oratorio",
+    fiesta: "Fiesta",
+    clasicas: "Clásicas"
+  };
 
-            <div class="mini-visualizer" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
+  return nombres[filtro] || filtro;
+}
 
-        </div>
+function actualizarFiltros() {
+  botonesFiltro.forEach((boton) => {
+    const filtro = boton.dataset.filtro;
+    const textoBase = obtenerNombreFiltro(filtro);
+    const cantidad = contarPorCategoria(filtro);
 
-        <div class="continue-card" id="continueCard">
-          <div>
-            <span class="continue-label">Continuar cantando</span>
-            <h3 id="continueTitle">Última canción abierta</h3>
-          </div>
+    boton.textContent = `${textoBase} ${cantidad}`;
+  });
+}
 
-          <a href="#" id="continueLink">Abrir</a>
-        </div>
+function actualizarContador(cantidadVisible) {
+  const textoBusqueda = buscador.value.trim();
+  const nombreCategoria = obtenerNombreFiltro(categoriaActiva);
 
-        <div class="playlist-tools">
-          <div class="search-box">
-            <input 
-              type="text" 
-              id="buscador" 
-              placeholder="Buscar canción..." 
-              autocomplete="off"
-            />
-          </div>
+  if (cantidadVisible === 0) {
+    contadorCanciones.textContent = "No hay canciones encontradas";
+    return;
+  }
 
-          <div class="filter-buttons" id="filterButtons" aria-label="Filtros de canciones">
-            <button class="filter-btn active" data-filtro="todas" type="button">
-              Todas
-            </button>
+  if (categoriaActiva === "todas" && textoBusqueda === "") {
+    contadorCanciones.textContent = `${cantidadVisible} canciones disponibles`;
+    return;
+  }
 
-            <button class="filter-btn" data-filtro="favoritas" type="button">
-              Favoritas
-            </button>
+  if (categoriaActiva === "favoritas") {
+    contadorCanciones.textContent =
+      cantidadVisible === 1
+        ? "1 canción favorita"
+        : `${cantidadVisible} canciones favoritas`;
+    return;
+  }
 
-            <button class="filter-btn" data-filtro="don-bosco" type="button">
-              Don Bosco
-            </button>
+  contadorCanciones.textContent =
+    cantidadVisible === 1
+      ? `1 canción encontrada en ${nombreCategoria}`
+      : `${cantidadVisible} canciones encontradas en ${nombreCategoria}`;
+}
 
-            <button class="filter-btn" data-filtro="oratorio" type="button">
-              Oratorio
-            </button>
+function filtrarCanciones() {
+  const textoBusqueda = normalizarTexto(buscador.value.trim());
+  const tarjetas = document.querySelectorAll(".song-card");
+  const favoritas = obtenerFavoritas();
 
-            <button class="filter-btn" data-filtro="fiesta" type="button">
-              Fiesta
-            </button>
+  let visibles = 0;
 
-            <button class="filter-btn" data-filtro="clasicas" type="button">
-              Clásicas
-            </button>
-          </div>
-        </div>
+  tarjetas.forEach((tarjeta) => {
+    const titulo = normalizarTexto(tarjeta.dataset.titulo || "");
+    const descripcion = normalizarTexto(tarjeta.dataset.descripcion || "");
+    const categoria = tarjeta.dataset.categoria || "";
+    const archivo = tarjeta.dataset.archivo || "";
 
-        <div class="playlist-table">
+    const coincideBusqueda =
+      titulo.includes(textoBusqueda) ||
+      descripcion.includes(textoBusqueda) ||
+      categoria.includes(textoBusqueda);
 
-          <div class="playlist-head">
-            <span>#</span>
-            <span>Canción</span>
-            <span>Categoría</span>
-            <span>Abrir</span>
-          </div>
+    const coincideCategoria =
+      categoriaActiva === "todas" ||
+      categoriaActiva === categoria ||
+      (categoriaActiva === "favoritas" && favoritas.includes(archivo));
 
-          <div id="listaCanciones" class="songs-list"></div>
+    const debeMostrarse = coincideBusqueda && coincideCategoria;
 
-        </div>
+    if (debeMostrarse) {
+      tarjeta.classList.remove("is-hidden");
 
-        <div class="no-results" id="noResults">
-          <h3>No encontramos ese temazo 🥲</h3>
-          <p>Prueba buscando por otro nombre, categoría o palabra clave.</p>
-        </div>
+      setTimeout(() => {
+        tarjeta.classList.remove("is-hiding");
+      }, 20);
 
-      </div>
+      visibles++;
+    } else {
+      tarjeta.classList.add("is-hiding");
 
-    </section>
+      setTimeout(() => {
+        tarjeta.classList.add("is-hidden");
+      }, 180);
+    }
+  });
 
-  </main>
+  actualizarContador(visibles);
 
-  <footer class="footer">
-    <p>Canta con Don Bosco · Inspirado en Don Bosco</p>
-    <span>By Darwin Soriano Quezada ©</span>
-  </footer>
+  setTimeout(() => {
+    noResults.style.display = visibles === 0 ? "block" : "none";
+  }, 200);
+}
 
-  <script src="script.js"></script>
+botonesFiltro.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    botonesFiltro.forEach((btn) => {
+      btn.classList.remove("active");
+    });
 
-</body>
-</html>
+    boton.classList.add("active");
+    categoriaActiva = boton.dataset.filtro;
+
+    filtrarCanciones();
+  });
+});
+
+buscador.addEventListener("input", filtrarCanciones);
+
+renderizarCanciones();
+actualizarFiltros();
+cargarUltimaCancion();
+filtrarCanciones();
