@@ -53,8 +53,16 @@ const canciones = [
     descripcion: "Llévame pp Dios",
     categoria: "clasicas",
     categoriaTexto: "Clásicas",
-    archivo: "cancion-Alma-Misionera.html"
-  }
+    archivo: "cancion-Alma-misionera.html"
+  },
+  {
+    numero: "08",
+    titulo: "Alabanza 🕺🏾",
+    descripcion: "No la bamba 🙄",
+    categoria: "fiesta",
+    categoriaTexto: "Fiesta",
+    archivo: "cancion-Alabanza.html"
+  },
 ];
 
 const buscador = document.getElementById("buscador");
