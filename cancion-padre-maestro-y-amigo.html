@@ -46,6 +46,18 @@
         linear-gradient(180deg, #06172b 0%, #0b1f3a 40%, #eef4ff 40%, #f8fbff 100%);
     }
 
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      z-index: 999;
+      background: linear-gradient(90deg, var(--dorado), var(--dorado-claro));
+      box-shadow: 0 0 18px rgba(245, 179, 1, 0.55);
+      transition: width 0.08s linear;
+    }
+
     .song-page {
       position: relative;
       min-height: 100vh;
@@ -97,20 +109,23 @@
       align-items: center;
       gap: 9px;
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.88);
-      font-weight: 850;
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--azul-oscuro);
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      border: 1px solid rgba(245, 179, 1, 0.42);
       padding: 12px 18px;
       border-radius: 999px;
-      backdrop-filter: blur(16px);
+      box-shadow:
+        0 16px 36px rgba(245, 179, 1, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.60);
       transition: 0.25s ease;
     }
 
     .back-link:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.14);
-      color: var(--blanco);
+      box-shadow:
+        0 20px 44px rgba(245, 179, 1, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
     }
 
     .song-number-pill {
@@ -143,7 +158,7 @@
         var(--sombra-fuerte),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.10);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .song-hero::before {
@@ -223,40 +238,6 @@
       color: rgba(255, 255, 255, 0.62);
       font-size: 0.92rem;
       font-weight: 750;
-    }
-
-    /* ACTIONS */
-
-    .song-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 22px 0;
-      padding: 13px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(0, 87, 184, 0.08);
-      box-shadow: var(--sombra-suave);
-      backdrop-filter: blur(18px);
-    }
-
-    .action-btn {
-      border: none;
-      cursor: pointer;
-      color: var(--azul-oscuro);
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(0, 87, 184, 0.08);
-      font-weight: 850;
-      padding: 11px 15px;
-      border-radius: 999px;
-      transition: 0.25s ease;
-    }
-
-    .action-btn:hover {
-      transform: translateY(-2px);
-      background: var(--azul-oscuro);
-      color: var(--blanco);
-      box-shadow: 0 14px 30px rgba(11, 31, 58, 0.16);
     }
 
     /* LYRICS */
@@ -378,6 +359,123 @@
       line-height: 1.55;
     }
 
+    /* FINAL ACTIONS */
+
+    .final-actions {
+      position: relative;
+      overflow: hidden;
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(6, 23, 43, 0.98), rgba(11, 31, 58, 0.96)),
+        radial-gradient(circle at 20% 0%, rgba(245, 179, 1, 0.14), transparent 34%),
+        radial-gradient(circle at 95% 20%, rgba(29, 140, 255, 0.14), transparent 34%);
+      color: var(--blanco);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        0 24px 60px rgba(11, 31, 58, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .final-actions::before {
+      content: "♪";
+      position: absolute;
+      right: 24px;
+      bottom: -46px;
+      font-size: 9rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.035);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .final-actions-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .final-actions-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .final-actions-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--dorado);
+      box-shadow: 0 0 0 6px rgba(245, 179, 1, 0.12);
+    }
+
+    .final-actions h2 {
+      margin: 0 0 6px;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      color: var(--blanco);
+    }
+
+    .final-actions p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.66);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .final-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .final-btn {
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .final-btn.primary {
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      color: var(--azul-oscuro);
+      box-shadow: 0 16px 34px rgba(245, 179, 1, 0.22);
+    }
+
+    .final-btn.secondary {
+      background: rgba(255, 255, 255, 0.09);
+      color: var(--blanco);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .final-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .final-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
     .bottom-nav {
       display: flex;
       justify-content: center;
@@ -469,18 +567,6 @@
         font-size: 0.98rem;
       }
 
-      .song-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        padding: 14px;
-      }
-
-      .action-btn {
-        padding: 13px 12px;
-        font-size: 0.9rem;
-      }
-
       .lyrics-inner {
         padding: 24px;
       }
@@ -509,6 +595,23 @@
         margin: 22px 0 0;
         border-radius: 18px;
       }
+
+      .final-actions {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      .final-actions-content {
+        grid-template-columns: 1fr;
+      }
+
+      .final-buttons {
+        justify-content: flex-start;
+      }
+
+      .final-btn {
+        width: 100%;
+      }
     }
 
     @media (max-width: 420px) {
@@ -525,8 +628,8 @@
         line-height: 1.92;
       }
 
-      .song-actions {
-        grid-template-columns: 1fr;
+      .final-actions h2 {
+        font-size: 1.2rem;
       }
     }
 
@@ -540,6 +643,8 @@
   </style>
 </head>
 <body>
+
+  <div class="reading-progress" id="readingProgress"></div>
 
   <main class="song-page" id="top">
     <div class="song-container">
@@ -568,13 +673,6 @@
           </div>
         </div>
       </section>
-
-      <div class="song-actions">
-        <button class="action-btn" onclick="cambiarLetra(1)">A+ Agrandar</button>
-        <button class="action-btn" onclick="cambiarLetra(-1)">A- Reducir</button>
-        <button class="action-btn" onclick="copiarLetra()">Copiar letra</button>
-        <button class="action-btn" onclick="compartirCancion()">Compartir</button>
-      </div>
 
       <section class="lyrics-card" id="lyricsCard">
         <div class="lyrics-inner">
@@ -620,6 +718,30 @@ Con los jóvenes de hoy
         </div>
       </section>
 
+      <section class="final-actions">
+        <div class="final-actions-content">
+          <div>
+            <span class="final-actions-label">Listo para cantar</span>
+
+            <h2>Guarda o comparte esta letra</h2>
+
+            <p>
+              Puedes descargarla como texto o compartir el enlace directo con tu grupo.
+            </p>
+          </div>
+
+          <div class="final-buttons">
+            <button class="final-btn primary" onclick="descargarLetra()">
+              Descargar letra
+            </button>
+
+            <button class="final-btn secondary" onclick="compartirCancion()">
+              Compartir
+            </button>
+          </div>
+        </div>
+      </section>
+
       <div class="bottom-nav">
         <a href="index.html">Volver al cancionero</a>
       </div>
@@ -630,32 +752,23 @@ Con los jóvenes de hoy
   <button class="floating-up" onclick="volverArriba()">↑</button>
 
   <script>
-    let tamañoLetra = 1.22;
+    function obtenerLetraLimpia() {
+      const titulo = document.querySelector(".song-title").innerText.trim();
+      const letra = document.getElementById("lyricsCard").innerText.trim();
 
-    function cambiarLetra(valor) {
-      const textos = document.querySelectorAll(".lyrics-text");
-
-      tamañoLetra += valor * 0.08;
-
-      if (tamañoLetra < 1) {
-        tamañoLetra = 1;
-      }
-
-      if (tamañoLetra > 1.6) {
-        tamañoLetra = 1.6;
-      }
-
-      textos.forEach((texto) => {
-        texto.style.fontSize = tamañoLetra + "rem";
-      });
+      return `${titulo}\nCanta con Don Bosco\n\n${letra}`;
     }
 
-    function copiarLetra() {
-      const letra = document.getElementById("lyricsCard").innerText;
+    function descargarLetra() {
+      const contenido = obtenerLetraLimpia();
+      const archivo = new Blob([contenido], { type: "text/plain;charset=utf-8" });
+      const enlace = document.createElement("a");
 
-      navigator.clipboard.writeText(letra).then(() => {
-        alert("Letra copiada 🎶");
-      });
+      enlace.href = URL.createObjectURL(archivo);
+      enlace.download = "padre-maestro-y-amigo.txt";
+      enlace.click();
+
+      URL.revokeObjectURL(enlace.href);
     }
 
     function compartirCancion() {
@@ -678,6 +791,18 @@ Con los jóvenes de hoy
         behavior: "smooth"
       });
     }
+
+    function actualizarProgresoLectura() {
+      const progreso = document.getElementById("readingProgress");
+      const scrollTop = window.scrollY;
+      const alturaDocumento = document.documentElement.scrollHeight - window.innerHeight;
+      const porcentaje = alturaDocumento > 0 ? (scrollTop / alturaDocumento) * 100 : 0;
+
+      progreso.style.width = porcentaje + "%";
+    }
+
+    window.addEventListener("scroll", actualizarProgresoLectura);
+    actualizarProgresoLectura();
   </script>
 
 </body>
