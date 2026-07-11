@@ -5,8 +5,7 @@ const canciones = [
     descripcion: "Clásico salesiano · El mejor hombre 🥹",
     categoria: "don-bosco",
     categoriaTexto: "Don Bosco",
-    archivo: "cancion-padre-maestro-y-amigo.html",
-    icono: "DB"
+    archivo: "cancion-padre-maestro-y-amigo.html"
   },
   {
     numero: "02",
@@ -14,8 +13,7 @@ const canciones = [
     descripcion: "Tu pana full 🤜🏻🤛🏻",
     categoria: "don-bosco",
     categoriaTexto: "Don Bosco",
-    archivo: "Don-Bosco-Amigo.html",
-    icono: "🤝"
+    archivo: "Don-Bosco-Amigo.html"
   },
   {
     numero: "03",
@@ -23,8 +21,7 @@ const canciones = [
     descripcion: "Pila de grande",
     categoria: "fiesta",
     categoriaTexto: "Fiesta",
-    archivo: "cancion-Un-Corazón-Tan-Grande.html",
-    icono: "❤️"
+    archivo: "cancion-Un-Corazón-Tan-Grande.html"
   },
   {
     numero: "04",
@@ -32,8 +29,7 @@ const canciones = [
     descripcion: "La de Ysidro 🎉",
     categoria: "oratorio",
     categoriaTexto: "Oratorio",
-    archivo: "cancion-candombe-del-oratorio.html",
-    icono: "🎉"
+    archivo: "cancion-candombe-del-oratorio.html"
   },
   {
     numero: "05",
@@ -41,8 +37,7 @@ const canciones = [
     descripcion: "Más allá de las estrellas ⭐",
     categoria: "don-bosco",
     categoriaTexto: "Don Bosco",
-    archivo: "cancion-Don-Bosco-Te-Espera.html",
-    icono: "⭐"
+    archivo: "cancion-Don-Bosco-Te-Espera.html"
   },
   {
     numero: "06",
@@ -50,8 +45,7 @@ const canciones = [
     descripcion: "Joven de corazón",
     categoria: "clasicas",
     categoriaTexto: "Clásicas",
-    archivo: "cancion-Salve-Don-Bosco-Santo.html",
-    icono: "🙏"
+    archivo: "cancion-Salve-Don-Bosco-Santo.html"
   }
 ];
 
@@ -162,8 +156,6 @@ function crearCancionHTML(cancion) {
       <div class="track-number">${cancion.numero}</div>
 
       <div class="track-main">
-        <div class="track-cover">${cancion.icono}</div>
-
         <div class="song-info">
           <h3>${cancion.titulo}</h3>
           <p>${cancion.descripcion}</p>
@@ -248,16 +240,6 @@ function contarPorCategoria(categoria) {
   return canciones.filter((cancion) => cancion.categoria === categoria).length;
 }
 
-function actualizarFiltros() {
-  botonesFiltro.forEach((boton) => {
-    const filtro = boton.dataset.filtro;
-    const textoBase = obtenerNombreFiltro(filtro);
-    const cantidad = contarPorCategoria(filtro);
-
-    boton.textContent = `${textoBase} ${cantidad}`;
-  });
-}
-
 function obtenerNombreFiltro(filtro) {
   const nombres = {
     todas: "Todas",
@@ -269,6 +251,16 @@ function obtenerNombreFiltro(filtro) {
   };
 
   return nombres[filtro] || filtro;
+}
+
+function actualizarFiltros() {
+  botonesFiltro.forEach((boton) => {
+    const filtro = boton.dataset.filtro;
+    const textoBase = obtenerNombreFiltro(filtro);
+    const cantidad = contarPorCategoria(filtro);
+
+    boton.textContent = `${textoBase} ${cantidad}`;
+  });
 }
 
 function actualizarContador(cantidadVisible) {
