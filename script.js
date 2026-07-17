@@ -63,6 +63,30 @@ const canciones = [
     categoriaTexto: "Fiesta",
     archivo: "cancion-Alabanza.html"
   },
+  {
+    numero: "09",
+    titulo: "Su Concierto",
+    descripcion: "Tremendo clásico",
+    categoria: "fiesta",
+    categoriaTexto: "Fiesta",
+    archivo: "cancion-Su-Concierto.html"
+  },
+  {
+    numero: "10",
+    titulo: "El 🌲",
+    descripcion: "De la 🗻",
+    categoria: "fiesta",
+    categoriaTexto: "Fiesta",
+    archivo: "cancion-El-🌲.html"
+  },
+  {
+    numero: "11",
+    titulo: "Yo Siento Señor",
+    descripcion: "La La La La",
+    categoria: "fiesta",
+    categoriaTexto: "Fiesta",
+    archivo: "cancion-Yo-Siento-Señor.html"
+  }
 ];
 
 const buscador = document.getElementById("buscador");
