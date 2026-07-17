@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Yo siento señor | Canta con Don Bosco</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --azul-oscuro: #0b1f3a;
+      --azul-profundo: #06172b;
+      --azul-salesiano: #0057b8;
+      --azul-electrico: #1d8cff;
+      --azul-claro: #eaf3ff;
+      --dorado: #f5b301;
+      --dorado-claro: #ffe08a;
+      --blanco: #ffffff;
+      --gris-texto: #5f6b7a;
+      --gris-fondo: #f5f7fb;
+      --sombra: 0 28px 70px rgba(11, 31, 58, 0.18);
+      --sombra-fuerte: 0 34px 90px rgba(0, 0, 0, 0.28);
+      --sombra-suave: 0 16px 38px rgba(11, 31, 58, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--azul-oscuro);
+      background:
+        radial-gradient(circle at 12% 4%, rgba(245, 179, 1, 0.18), transparent 26%),
+        radial-gradient(circle at 92% 0%, rgba(29, 140, 255, 0.22), transparent 30%),
+        linear-gradient(180deg, #06172b 0%, #0b1f3a 40%, #eef4ff 40%, #f8fbff 100%);
+    }
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      z-index: 999;
+      background: linear-gradient(90deg, var(--dorado), var(--dorado-claro));
+      box-shadow: 0 0 18px rgba(245, 179, 1, 0.55);
+      transition: width 0.08s linear;
+    }
+
+    .song-page {
+      position: relative;
+      min-height: 100vh;
+      padding: 28px;
+      isolation: isolate;
+    }
+
+    .song-page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+    }
+
+    .song-page::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(245, 179, 1, 0.13), transparent 28%),
+        radial-gradient(circle at 86% 12%, rgba(29, 140, 255, 0.17), transparent 30%);
+      pointer-events: none;
+    }
+
+    .song-container {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* TOP BAR */
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--azul-oscuro);
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      border: 1px solid rgba(245, 179, 1, 0.42);
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow:
+        0 16px 36px rgba(245, 179, 1, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.60);
+      transition: 0.25s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 20px 44px rgba(245, 179, 1, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .song-number-pill {
+      color: var(--dorado-claro);
+      background: rgba(245, 179, 1, 0.12);
+      border: 1px solid rgba(245, 179, 1, 0.28);
+      font-weight: 900;
+      padding: 10px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      backdrop-filter: blur(14px);
+    }
+
+    /* HERO */
+
+    .song-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 310px;
+      display: flex;
+      align-items: end;
+      padding: 46px;
+      border-radius: 38px;
+      color: var(--blanco);
+      background:
+        linear-gradient(135deg, rgba(0, 87, 184, 0.26), rgba(245, 179, 1, 0.12)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.10), transparent 46%),
+        linear-gradient(135deg, #06172b, #0b1f3a 58%, #003f88);
+      box-shadow:
+        var(--sombra-fuerte),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      margin-bottom: 24px;
+    }
+
+    .song-hero::before {
+      content: "🎶";
+      position: absolute;
+      right: 34px;
+      bottom: -54px;
+      font-size: 14rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.04);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .song-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+
+    .song-hero-info {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    .song-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .song-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--dorado);
+      box-shadow: 0 0 0 6px rgba(245, 179, 1, 0.12);
+    }
+
+    .song-title {
+      font-size: clamp(2.6rem, 6vw, 5.3rem);
+      line-height: 0.95;
+      letter-spacing: -3.2px;
+      margin: 0 0 16px;
+      color: var(--blanco);
+      text-wrap: balance;
+      text-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+    }
+
+    .song-subtitle {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 1.06rem;
+      line-height: 1.65;
+      max-width: 680px;
+      margin: 0;
+    }
+
+    .song-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.92rem;
+      font-weight: 750;
+    }
+
+    /* LYRICS */
+
+    .lyrics-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(255, 255, 255, 0.95));
+      border: 1px solid rgba(0, 87, 184, 0.08);
+      border-radius: 34px;
+      box-shadow: var(--sombra);
+    }
+
+    .lyrics-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 92% 0%, rgba(245, 179, 1, 0.08), transparent 24%),
+        radial-gradient(circle at 0% 16%, rgba(0, 87, 184, 0.07), transparent 28%);
+      pointer-events: none;
+    }
+
+    .lyrics-inner {
+      position: relative;
+      z-index: 1;
+      padding: 38px;
+    }
+
+    .lyrics-section {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    }
+
+    .lyrics-section:first-child {
+      padding-top: 0;
+    }
+
+    .lyrics-section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .part-title {
+      position: sticky;
+      top: 12px;
+      align-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--azul-salesiano);
+      font-weight: 950;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .part-title::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      min-width: 9px;
+      border-radius: 50%;
+      background: var(--azul-salesiano);
+      box-shadow: 0 0 0 5px rgba(0, 87, 184, 0.08);
+    }
+
+    .lyrics-text {
+      font-size: 1.22rem;
+      line-height: 1.92;
+      color: #203047;
+      white-space: pre-line;
+      margin: 0;
+      letter-spacing: -0.15px;
+    }
+
+    .lyrics-text strong {
+      font-weight: 850;
+      color: #13243c;
+    }
+
+    .chorus {
+      margin: 4px -12px;
+      padding: 24px 14px;
+      border-bottom: none;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(245, 179, 1, 0.14), rgba(234, 243, 255, 0.52)),
+        rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(245, 179, 1, 0.22);
+      box-shadow:
+        0 18px 40px rgba(245, 179, 1, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.70);
+    }
+
+    .chorus .part-title {
+      color: #8a6100;
+    }
+
+    .chorus .part-title::before {
+      background: var(--dorado);
+      box-shadow: 0 0 0 5px rgba(245, 179, 1, 0.14);
+    }
+
+    .note-box {
+      margin: 24px 0 0 126px;
+      background: rgba(245, 179, 1, 0.10);
+      border: 1px solid rgba(245, 179, 1, 0.22);
+      color: #705000;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    /* FINAL ACTIONS */
+
+    .final-actions {
+      position: relative;
+      overflow: hidden;
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(6, 23, 43, 0.98), rgba(11, 31, 58, 0.96)),
+        radial-gradient(circle at 20% 0%, rgba(245, 179, 1, 0.14), transparent 34%),
+        radial-gradient(circle at 95% 20%, rgba(29, 140, 255, 0.14), transparent 34%);
+      color: var(--blanco);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        0 24px 60px rgba(11, 31, 58, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .final-actions::before {
+      content: "🙏🏼";
+      position: absolute;
+      right: 24px;
+      bottom: -46px;
+      font-size: 9rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.035);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .final-actions-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .final-actions-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .final-actions-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--dorado);
+      box-shadow: 0 0 0 6px rgba(245, 179, 1, 0.12);
+    }
+
+    .final-actions h2 {
+      margin: 0 0 6px;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      color: var(--blanco);
+    }
+
+    .final-actions p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.66);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .final-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .final-btn {
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .final-btn.primary {
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      color: var(--azul-oscuro);
+      box-shadow: 0 16px 34px rgba(245, 179, 1, 0.22);
+    }
+
+    .final-btn.secondary {
+      background: rgba(255, 255, 255, 0.09);
+      color: var(--blanco);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .final-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .final-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .bottom-nav a {
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--azul-salesiano), #003f88);
+      color: var(--blanco);
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 850;
+      box-shadow: 0 14px 32px rgba(0, 87, 184, 0.24);
+      transition: 0.3s ease;
+    }
+
+    .bottom-nav a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0, 87, 184, 0.30);
+    }
+
+    .floating-up {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: var(--dorado);
+      color: var(--azul-oscuro);
+      font-weight: 950;
+      font-size: 1.2rem;
+      box-shadow: 0 14px 32px rgba(245, 179, 1, 0.35);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: 0.3s ease;
+      z-index: 10;
+    }
+
+    .floating-up:hover {
+      transform: translateY(-4px);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+      .song-page {
+        padding: 16px;
+      }
+
+      .top-bar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link,
+      .song-number-pill {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .song-hero {
+        min-height: auto;
+        padding: 32px 26px;
+        border-radius: 30px;
+      }
+
+      .song-hero::before {
+        right: 10px;
+        bottom: -44px;
+        font-size: 9rem;
+      }
+
+      .song-label {
+        font-size: 0.74rem;
+      }
+
+      .song-title {
+        font-size: clamp(2.25rem, 12vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -1.8px;
+      }
+
+      .song-subtitle {
+        font-size: 0.98rem;
+      }
+
+      .lyrics-inner {
+        padding: 24px;
+      }
+
+      .lyrics-section {
+        display: block;
+        padding: 24px 0;
+      }
+
+      .part-title {
+        position: static;
+        margin-bottom: 10px;
+      }
+
+      .lyrics-text {
+        font-size: 1.08rem;
+        line-height: 1.95;
+      }
+
+      .chorus {
+        margin: 8px -10px;
+        padding: 22px 16px;
+      }
+
+      .note-box {
+        margin: 22px 0 0;
+        border-radius: 18px;
+      }
+
+      .final-actions {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      .final-actions-content {
+        grid-template-columns: 1fr;
+      }
+
+      .final-buttons {
+        justify-content: flex-start;
+      }
+
+      .final-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .song-title {
+        font-size: 2.35rem;
+      }
+
+      .lyrics-inner {
+        padding: 20px;
+      }
+
+      .lyrics-text {
+        font-size: 1.04rem;
+        line-height: 1.92;
+      }
+
+      .final-actions h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <main class="song-page" id="top">
+    <div class="song-container">
+
+      <div class="top-bar">
+        <a href="index.html" class="back-link">← Volver al cancionero</a>
+        <span class="song-number-pill">Canción 05</span>
+      </div>
+
+      <section class="song-hero">
+        <div class="song-hero-info">
+          <span class="song-label">Canta con Don Bosco</span>
+
+          <h1 class="song-title">Yo Siento Señor</h1>
+
+          <p class="song-subtitle">
+            La La La La La
+          </p>
+
+          <div class="song-meta">
+            <span>Letra</span>
+            <span>•</span>
+            <span>Yo Siento</span>
+            <span>•</span>
+            <span>Cancionero salesiano</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyrics-card" id="lyricsCard">
+        <div class="lyrics-inner">
+
+          <div class="lyrics-section">
+            <span class="part-title">Verso 1</span>
+
+            <p class="lyrics-text">
+Yo siento señor que tu me amas
+yo siento señor que te puedo amar
+hablame señor que tu siervo escucha
+hablame que quieres de mi
+            </p>
+          </div>
+
+          <div class="lyrics-section chorus">
+            <span class="part-title">Coro</span>
+
+            <p class="lyrics-text">
+<strong>Señor tu has sido grande para mi
+en el desierto de mi vida hablame
+yo quiero estar dispuesto a todo
+toma mi ser mi corazon es para ti
+por eso canto tus maravillas por eso canto tu amor</strong>
+            </p>
+          </div>
+
+          <div class="lyrics-section">
+            <span class="part-title">Verso 2</span>
+
+            <p class="lyrics-text">
+te alabo señor por tus grandezas
+mil gracias te doy por tu gran amor
+heme aqui señor para acompañarte
+heme aqui que quieres de mi.
+            </p>
+          </div>
+
+          <div class="note-box">
+            🔁 Luego vuelve al coro.
+          </div>
+
+          <div class="lyrics-section">
+
+        </div>
+      </section>
+
+      <section class="final-actions">
+        <div class="final-actions-content">
+          <div>
+            <span class="final-actions-label">Listo para cantar</span>
+
+            <h2>Guarda o comparte esta letra</h2>
+
+            <p>
+              Puedes descargarla como texto o compartir el enlace directo con tu grupo.
+            </p>
+          </div>
+
+          <div class="final-buttons">
+            <button class="final-btn primary" onclick="descargarLetra()">
+              Descargar letra
+            </button>
+
+            <button class="final-btn secondary" onclick="compartirCancion()">
+              Compartir
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="bottom-nav">
+        <a href="index.html">Volver al cancionero</a>
+      </div>
+
+    </div>
+  </main>
+
+  <button class="floating-up" onclick="volverArriba()">↑</button>
+
+  <script>
+    function obtenerLetraLimpia() {
+      const titulo = document.querySelector(".song-title").innerText.trim();
+      const letra = document.getElementById("lyricsCard").innerText.trim();
+
+      return `${titulo}\nCanta con Don Bosco\n\n${letra}`;
+    }
+
+    function descargarLetra() {
+      const contenido = obtenerLetraLimpia();
+      const archivo = new Blob([contenido], { type: "text/plain;charset=utf-8" });
+      const enlace = document.createElement("a");
+
+      enlace.href = URL.createObjectURL(archivo);
+      enlace.download = "don-bosco-te-espera.txt";
+      enlace.click();
+
+      URL.revokeObjectURL(enlace.href);
+    }
+
+    function compartirCancion() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Don Bosco Te Espera",
+          text: "Mira esta canción del cancionero Canta con Don Bosco",
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert("Enlace copiado para compartir 🎶");
+        });
+      }
+    }
+
+    function volverArriba() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function actualizarProgresoLectura() {
+      const progreso = document.getElementById("readingProgress");
+      const scrollTop = window.scrollY;
+      const alturaDocumento = document.documentElement.scrollHeight - window.innerHeight;
+      const porcentaje = alturaDocumento > 0 ? (scrollTop / alturaDocumento) * 100 : 0;
+
+      progreso.style.width = porcentaje + "%";
+    }
+
+    window.addEventListener("scroll", actualizarProgresoLectura);
+    actualizarProgresoLectura();
+  </script>
+
+</body>
+</html>
