@@ -17,7 +17,7 @@ const canciones = [
   },
   {
     numero: "03",
-    titulo: "Un corazón tan grande",
+    titulo: "Un 💖 tan grande",
     descripcion: "Pila de grande",
     categoria: "fiesta",
     categoriaTexto: "Fiesta",
@@ -86,7 +86,24 @@ const canciones = [
     categoria: "fiesta",
     categoriaTexto: "Fiesta",
     archivo: "cancion-Yo-Siento-Señor.html"
-  }
+  },
+  {
+    numero: "12",
+    titulo: "Me has seducido señor",
+    descripcion: "Y me dejé seducir",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "Me-Has-Seducido.html"
+  },
+  {
+    numero: "13",
+    titulo: "Pescador de Hombres",
+    descripcion: "Junto a ti buscaré otro 🌊",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "Pescador.html"
+  },
+  
 ];
 
 const buscador = document.getElementById("buscador");
