@@ -103,7 +103,14 @@ const canciones = [
     categoriaTexto: "Clásicas",
     archivo: "Pescador.html"
   },
-  
+  {
+    numero: "14",
+    titulo: "Que detalle Señor",
+    descripcion: "Super detallista",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "Que-Detalle.html"
+  },
 ];
 
 const buscador = document.getElementById("buscador");
