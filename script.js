@@ -111,6 +111,22 @@ const canciones = [
     categoriaTexto: "Clásicas",
     archivo: "Que-Detalle.html"
   },
+  {
+    numero: "15",
+    titulo: "Gracias por tu don",
+    descripcion: "Gracias Señor",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "Gracias-por-tu-don.html"
+  },
+  {
+    numero: "16",
+    titulo: "Hermano entre los hombres",
+    descripcion: "🙂‍↕️",
+    categoria: "clasicas",
+    categoriaTexto: "Clásicas",
+    archivo: "Hombre.html"
+  },
 ];
 
 const buscador = document.getElementById("buscador");
